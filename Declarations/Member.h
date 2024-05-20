@@ -30,7 +30,7 @@ public:
 
     // Member functions
 
-    void borrow(double amnt, time_t loanRepayDate, string mId)
+    void borrow(int amnt, time_t loanRepayDate, string mId)
     {
         BorrowTransactions *newBorrowTrans = new BorrowTransactions(mId, amnt, loanRepayDate);
         memberBorrowTrans.push_back(newBorrowTrans);
@@ -42,7 +42,7 @@ public:
         memberSaveTrans.push_back(newSaveTrans);
     };
 
-    void payjangi(double amount, int memberId) {};
+    void payjangi(int amount, int memberId) {};
 
     void contributions() {
 

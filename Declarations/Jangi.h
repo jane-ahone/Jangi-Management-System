@@ -38,29 +38,39 @@ public:
     }
 
     void balloting()
-    {
+    { // loop through vector Member and assign months
         jangiStatus = Ongoing;
-        // loop through vector Member and assign months
     }
 
     /**
      * @param rFee // default fee to be paid by new members
      * @param n  // name of new Member
      */
-    void addMember(int rFee, string n)
+    void addMember(int rFee, string n) // complete
     {
+
         if (jangiStatus != Ongoing)
         {
-            string newMemberId = "m" + numMembers;
-            if (rFee == regFee)
+            auto it = find(members.begin(), members.end(), n);
+
+            if (it != members.end())
             {
-                Member *newMember = new Member(n, newMemberId, 0, "normal");
-                members.push_back(newMember);
-                numMembers++;
+                cout << "Registration failed. Name already exists. Try again";
             }
             else
             {
-                cout << "Invalid Registration Fee. Registration Failed";
+                // If name isn't found in existing database( or vector)
+                string newMemberId = "m" + numMembers;
+                if (rFee == regFee)
+                {
+                    Member *newMember = new Member(n, newMemberId, 0, "normal");
+                    members.push_back(newMember);
+                    numMembers++;
+                }
+                else
+                {
+                    cout << "Invalid Registration Fee. Registration Failed";
+                }
             }
         }
         else
@@ -68,11 +78,24 @@ public:
             cout << "Jangi is currently ongoing. Try again next year";
         }
     }
-    void exit(int memberId)
-    { // work on memberId being string
-        auto iterator = find_if(members.begin(), members.end(), [=](Member *member)
-                                { return member->memberID == memberId; });
-        members.erase(iterator);
+    void exit(string n) // complete
+    {
+        // Find the element with name n
+        vector<Member *>::iterator it = find(members.begin(), members.end(), n);
+
+        // Check if the element was found
+        if (it != members.end())
+        {
+            string mId = "m" + distance(members.begin(), it);
+            cout << "Member found at with Id: " << mId << endl;
+            auto iterator = find_if(members.begin(), members.end(), [=](Member *member)
+                                    { return member->memberID == mId; });
+            members.erase(iterator);
+        }
+        else
+        {
+            cout << "Member not found." << endl;
+        }
     };
 };
 
