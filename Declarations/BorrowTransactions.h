@@ -13,17 +13,19 @@ using namespace std;
 class BorrowTransactions : public FinancialTransaction
 {
 public:
+    int lid = 0;
     int interest;             // interest rate
     time_t loanrepaymentdate; // date the loan is to be repaid
     string status;            // indicates if loan is pending, complete or late
 
-    BorrowTransactions(string mId, int amnt, time_t lrd)
+    BorrowTransactions(string mId, int amnt, float duration)
     {
         interest = 0.01; // in percentage
         status = "Active";
         memberId = mId;
         amount = amnt;
-        loanrepaymentdate = lrd;
+        loanrepaymentdate = datetime + duration; // fix this
+        lid++;
     }
 
     void calcInterest() {

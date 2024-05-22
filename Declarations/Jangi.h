@@ -27,6 +27,7 @@ public:
     int startMonth;
     int numMembers;
     vector<Member *> members;
+    int static currentMonth;
 
     Jangi(string n, int rFee, int agreedAmnt, int strtMonth)
     {
@@ -35,6 +36,7 @@ public:
         startMonth = 1; // Jangi starts in the first Month of the year
         numMembers = 0;
         jangiStatus = Pending;
+        currentMonth = 0;
     }
 
     void balloting()

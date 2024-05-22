@@ -12,10 +12,12 @@ using namespace std;
 class SavingsTrans : public FinancialTransaction
 {
 public:
+    int sid = -1;
     SavingsTrans(string mId, int amnt)
     {
         memberId = mId;
         amount = amnt;
+        sid++;
         // set datetime
     }
 };
