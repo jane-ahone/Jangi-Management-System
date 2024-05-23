@@ -22,9 +22,10 @@ void Jangi::printAllMembers()
     cout << "Members:" << endl;
     for (const auto &member : members)
     {
-        cout << "Name: " << member->name << ", Member ID: " << member->memberID
-             << ", Jangi: " << member->agreedAmount
-             << ", Benefits in the: ";
+        cout << "Name: " << member->name << endl
+             << "Member ID: " << member->memberID << endl
+             << "Jangi: " << member->agreedAmount << endl
+             << "Benefits in the: " << endl;
         // print array;
     }
 }

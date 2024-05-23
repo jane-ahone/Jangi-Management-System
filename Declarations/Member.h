@@ -53,6 +53,8 @@ public:
     // Can only pay complete loan
     void payloan(string mId, int amnt);
 
+    void printTransactions();
+
     BorrowTransactions *printLoans(string mId);
 
     void contributions();

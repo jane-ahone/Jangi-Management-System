@@ -36,16 +36,43 @@ void Member::payjangi(int amnt, string mId, int monthPay)
     }
     if (monthPay < myObj.currentMonth)
     {
-        if (monthPay - myObj.currentMonth < -1)
-        {
-            cout << "Jangi payment is 2 months late. Immediate removal from jangi";
-            // myObj.exit(mId); // arrange this
-        }
         Fine *newFine = new Fine(mId, amnt, monthPay);
         memberFines.push_back(newFine);
     }
     MonthlyPaymentsTrans *newJangiPayment = new MonthlyPaymentsTrans(mId, amnt, monthPay);
     memberMonthlyPayTrans.push_back(newJangiPayment);
+}
+
+void Member::printTransactions()
+{
+    cout << "Borrow Transactions:" << endl;
+    for (const auto &trans : memberBorrowTrans)
+    {
+        cout << "Member ID: " << trans->memberId << endl
+             << ", Amount: " << trans->amount << endl
+             << ", Interest: " << trans->interest << ", Status: " << trans->status << endl;
+    }
+
+    cout << "\nSavings Transactions:" << endl;
+    for (const auto &trans : memberSaveTrans)
+    {
+        cout << "Member ID: " << trans->memberId << endl
+             << ", Amount: " << trans->amount << endl;
+    }
+
+    cout << "\nMonthly Payment Transactions:" << endl;
+    for (const auto &trans : memberMonthlyPayTrans)
+    {
+        cout << "Member ID: " << trans->memberId << ", Amount: " << trans->amount
+             << ", Month: " << trans->monthPay << endl;
+    }
+
+    cout << "\nFines:" << endl;
+    for (const auto &fine : memberFines)
+    {
+        cout << "Member ID: " << fine->memberId << ", Amount: " << fine->amount
+             << ", Month: " << fine->monthPay << endl;
+    }
 }
 
 void Member::payloan(string mId, int amnt)
