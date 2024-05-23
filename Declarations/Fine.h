@@ -1,7 +1,3 @@
-/**
- * Project Jangi
- */
-
 #ifndef _FINE_H
 #define _FINE_H
 
@@ -9,18 +5,11 @@
 
 class Fine : public FinancialTransaction
 {
-
 public:
-    int fineId = -1;
+    static int fineId;
     int monthPay;
 
-    Fine(string mId, int amnt, int mnthPay)
-    {
-        fineId++;
-        memberId = mId;
-        amount = 500;
-        // date time
-    }
+    Fine(string mId, int amnt, int mnthPay);
 };
 
 #endif //_FINE_H
