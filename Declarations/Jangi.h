@@ -39,10 +39,11 @@ public:
     };
 
     vector<memberBallot> memberBallots; // stores information about member ballots and beneffiting amount
-
     static int currentMonth;
 
     Jangi(string n, int rFee, int strtMonth);
+
+    void printAllMembers();
 
     void balloting(); // loop through vector Member and assign months
 
@@ -50,7 +51,7 @@ public:
      * @param rFee // default fee to be paid by new members
      * @param n  // name of new Member
      */
-    void addMember(int rFee, string n); // complete
+    void addMember(int rFee, string n, int amount); // complete
 
     void exit(string n); // complete
 };

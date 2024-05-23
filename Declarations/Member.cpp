@@ -6,12 +6,13 @@ class Jangi;
 extern Jangi myObj;
 
 // Constructor
-Member::Member(string n, string mId, int monthofbenefit, string memberStatus)
+Member::Member(string n, string mId, int monthofbenefit, string memberStatus, int monthlyJangi)
 {
     name = n;
     memberID = mId;
     this->memberStatus = "Normal";
     jangiDay = 23; // Day in a month in which jangi takes place
+    agreedAmount = monthlyJangi;
 }
 
 void Member::borrow(int amnt, float duration, string mId)

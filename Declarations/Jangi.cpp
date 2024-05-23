@@ -17,6 +17,17 @@ Jangi::Jangi(string n, int rFee, int strtMonth)
     jangiStatus = Pending;
     currentMonth = 0;
 }
+void Jangi::printAllMembers()
+{
+    cout << "Members:" << endl;
+    for (const auto &member : members)
+    {
+        cout << "Name: " << member->name << ", Member ID: " << member->memberID
+             << ", Jangi: " << member->agreedAmount
+             << ", Benefits in the: ";
+        // print array;
+    }
+}
 
 void Jangi::balloting()
 {
@@ -59,7 +70,7 @@ void Jangi::balloting()
     jangiStatus = Ongoing;
 }
 
-void Jangi::addMember(int rFee, string n)
+void Jangi::addMember(int rFee, string n, int amount)
 {
     if (jangiStatus != Ongoing)
     {
@@ -76,7 +87,7 @@ void Jangi::addMember(int rFee, string n)
             string newMemberId = "m" + to_string(numMembers);
             if (rFee == regFee)
             {
-                Member *newMember = new Member(n, newMemberId, 0, "normal");
+                Member *newMember = new Member(n, newMemberId, 0, "normal", amount);
                 members.push_back(newMember);
                 numMembers++;
             }

@@ -31,7 +31,7 @@ public:
     vector<Fine *> memberFines;                           // vector storing all member savin transactions
 
     // Constructor
-    Member(string n, string mId, int monthofbenefit, string memberStatus);
+    Member(string n, string mId, int monthofbenefit, string memberStatus, int monthlyJangi);
 
     // Member functions
     /**

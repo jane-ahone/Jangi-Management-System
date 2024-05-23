@@ -11,23 +11,24 @@ int main()
     Jangi myJangi("My Jangi", 1000, 1);
 
     // Create Member instances
-    Member member1("John Doe", "m0", 0, "Normal");
-    Member member2("Jane Smith", "m1", 0, "Normal");
-    Member member3("Mike Johnson", "m2", 0, "Normal");
+    Member member1("John Doe", "m0", 0, "Normal", 500);
+    Member member2("Jane Smith", "m1", 0, "Normal", 500);
+    Member member3("Mike Johnson", "m2", 0, "Normal", 500);
 
     int choice;
     string name, memberId;
     string transactionType = "";
     int amount, duration, month;
+    int regFee;
 
     while (true)
     {
         cout << "Choose an option:" << endl;
         cout << "1. Add member to Jangi" << endl;
-        cout << "2. Set agreed amount for member" << endl;
+        cout << "2. Perform member transactions" << endl;
         cout << "3. Perform balloting" << endl;
         cout << "4. Display member information" << endl;
-        cout << "5. Perform member transactions" << endl;
+        cout << "5. Display all members" << endl;
         cout << "6. Remove a member" << endl;
         cout << "7. Exit" << endl;
 
@@ -36,25 +37,66 @@ int main()
         switch (choice)
         {
         case 1:
-            cout << "Enter member name: ";
+            cout << "Enter new member's name: ";
             cin >> name;
-            myJangi.addMember(1000, name);
+            cout << "Enter registration Fee ";
+            cin >> regFee;
+            cout << "How much are you willing to play every month? ";
+            cin >> amount;
+            myJangi.addMember(regFee, name, amount);
+            myJangi.printAllMembers();
             break;
 
         case 2:
+            myJangi.printAllMembers();
             cout << "Enter member ID: ";
             cin >> memberId;
-            cout << "Enter agreed amount: ";
-            cin >> amount;
 
-            if (memberId == "m0")
-                member1.agreedAmount = amount;
-            else if (memberId == "m1")
-                member2.agreedAmount = amount;
-            else if (memberId == "m2")
-                member3.agreedAmount = amount;
+            string mIndex;
+            // Extract the numeric part
+            for (char c : memberId)
+            {
+                if (isdigit(c))
+                {
+                    mIndex += c;
+                }
+            }
+
+            // Convert the numeric part to an integer
+            int num = stoi(mIndex);
+
+            cout << "Enter transaction type (save, borrow, payjangi): ";
+
+            cin >> transactionType;
+
+            if (transactionType == "save")
+            {
+                cout << "Enter amount to save: ";
+                cin >> amount;
+
+                myJangi.members[num]->save(amount, memberId);
+            }
+            else if (transactionType == "borrow")
+            {
+                cout << "Enter amount to borrow: ";
+                cin >> amount;
+                cout << "Enter duration (in months): ";
+                cin >> duration;
+
+                myJangi.members[num]->borrow(amount, duration, memberId);
+            }
+            else if (transactionType == "payjangi")
+            {
+                cout << "Enter amount to pay: ";
+                cin >> amount;
+                cout << "Enter month: you're paying for ";
+                cin >> month;
+                myJangi.members[num]->payjangi(amount, memberId, month);
+            }
             else
-                cout << "Invalid member ID" << endl;
+            {
+                cout << "Invalid transaction type" << endl;
+            }
             break;
 
         case 3:
@@ -77,59 +119,8 @@ int main()
             break;
 
         case 5:
-            cout << "Enter member ID: ";
-            cin >> memberId;
-            cout << "Enter transaction type (save, borrow, payjangi): ";
+            myJangi.printAllMembers();
 
-            cin >> transactionType;
-
-            if (transactionType == "save")
-            {
-                cout << "Enter amount to save: ";
-                cin >> amount;
-                if (memberId == "m0")
-                    member1.save(amount, memberId);
-                else if (memberId == "m1")
-                    member2.save(amount, memberId);
-                else if (memberId == "m2")
-                    member3.save(amount, memberId);
-                else
-                    cout << "Invalid member ID" << endl;
-            }
-            else if (transactionType == "borrow")
-            {
-                cout << "Enter amount to borrow: ";
-                cin >> amount;
-                cout << "Enter duration (in months): ";
-                cin >> duration;
-                if (memberId == "m0")
-                    member1.borrow(amount, duration, memberId);
-                else if (memberId == "m1")
-                    member2.borrow(amount, duration, memberId);
-                else if (memberId == "m2")
-                    member3.borrow(amount, duration, memberId);
-                else
-                    cout << "Invalid member ID" << endl;
-            }
-            else if (transactionType == "payjangi")
-            {
-                cout << "Enter amount to pay: ";
-                cin >> amount;
-                cout << "Enter benefit month: ";
-                cin >> month;
-                if (memberId == "m0")
-                    member1.payjangi(amount, memberId, month);
-                else if (memberId == "m1")
-                    member2.payjangi(amount, memberId, month);
-                else if (memberId == "m2")
-                    member3.payjangi(amount, memberId, month);
-                else
-                    cout << "Invalid member ID" << endl;
-            }
-            else
-            {
-                cout << "Invalid transaction type" << endl;
-            }
             break;
 
         case 6:
