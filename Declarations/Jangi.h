@@ -27,6 +27,17 @@ public:
     int startMonth;
     int numMembers;
     vector<Member *> members;
+
+    // Used to store balloting information
+    struct memberBallot
+    {                     // Structure declaration
+        string memberId;  // Member (string variable)
+        int benefitMonth; // Member (int variable)
+        int benefitAmount;
+    };
+
+    vector<memberBallot> memberBallots; // stores information about member ballots and beneffiting amount
+
     int static currentMonth;
 
     Jangi(string n, int rFee, int agreedAmnt, int strtMonth)
@@ -41,6 +52,42 @@ public:
 
     void balloting()
     { // loop through vector Member and assign months
+        // this should work for member of size 12
+        // Fix
+        int balance = 0;
+        int maxAmountMonth; // Maximum amount allowed for disbursement
+        int totAmount = 0;
+        // Get total maximum monthly amount
+        for (Member *member : members)
+        {
+            totAmount = member->agreedAmount + totAmount;
+        }
+        int i = 1; // tracking the months
+
+        for (Member *member : members)
+        {
+            member->benefitMonth.push_back(i); // assign month
+            maxAmountMonth = totAmount - balance;
+
+            memberBallot memberballot; // instance of memberBallot
+            memberballot.memberId = member->memberID;
+            memberballot.benefitMonth = i;
+            memberballot.benefitAmount = maxAmountMonth;
+            memberBallots.push_back(memberballot);
+            i++; // next month
+
+            balance = (member->agreedAmount * 12) - maxAmountMonth;
+
+            if (balance != 0)
+            {
+                member->benefitMonth.push_back(i); // assign next month
+                memberballot.memberId = member->memberID;
+                memberballot.benefitMonth = i;
+                memberballot.benefitAmount = balance;
+                memberBallots.push_back(memberballot);
+            }
+        }
+
         jangiStatus = Ongoing;
     }
 

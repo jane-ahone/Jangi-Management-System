@@ -8,6 +8,8 @@
 #include <string>
 #include <iostream>
 #include <BorrowTransactions.h>
+#include <MonthlyPaymentsTrans.h>
+#include <Fine.h>
 #include <Jangi.h>
 #include <SavingsTrans.h>
 #include <ctime>
@@ -22,7 +24,7 @@ public:
     string name;
     string memberID;
     int agreedAmount; // Member agrees to pay a fixed amount say 3000frs every month
-    int monthofbenefit;
+    vector<int> benefitMonth;
     int jangiDay;
     string memberStatus;                                  // member can either be normal or part of bureau
     vector<BorrowTransactions *> memberBorrowTrans;       // vector storing all member borrow transactiosn

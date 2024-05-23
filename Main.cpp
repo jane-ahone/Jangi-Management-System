@@ -1,54 +1,43 @@
-#include <./Declarations/FinancialTransaction.h>
-#include <./Declarations/BorrowTransactions.h>
-#include <./Declarations/Bureau.h>
-#include <./Declarations/Fine.h>
-#include <./Declarations/Jangi.h>
-#include <./Declarations/Member.h>
-#include <./Declarations/MonthlyPaymentsTrans.h>
-#include <./Declarations/SavingsTrans.h>
-#include <./Declarations/SocialContribution.h>
+#include <iostream>
+#include <string>
+#include "Jangi.h"
 
 using namespace std;
 
 int main()
 {
-    random_device rd;
-    mt19937 gen(rd());
+    // Create a Jangi instance
+    Jangi myJangi("My Jangi", 1000, 12000, 1);
 
-    int choice;
-    cout << "************************" << endl;
-    cout << "*  WELCOME TO OUR SYSTEM  *" << endl;
-    cout << "************************" << endl;
-    do
+    // Add members to the Jangi
+    myJangi.addMember(1000, "John Doe");
+    myJangi.addMember(1000, "Jane Smith");
+    myJangi.addMember(1000, "Mike Johnson");
+    myJangi.addMember(1000, "Emily Brown");
+
+    // Perform balloting
+    myJangi.balloting();
+
+    // Display member information
+    cout << "Jangi Name: " << myJangi.name << endl;
+    cout << "Number of Members: " << myJangi.numMembers << endl;
+    cout << "Jangi Status: " << (myJangi.jangiStatus == Jangi::Ongoing ? "Ongoing" : "Pending") << endl;
+
+    // Display member ballots
+    cout << "\nMember Ballots:" << endl;
+    for (const auto &ballot : myJangi.memberBallots)
     {
-        displayMenu();
-        cin >> choice;
+        cout << "Member ID: " << ballot.memberId << endl;
+        cout << "Benefit Month: " << ballot.benefitMonth << endl;
+        cout << "Benefit Amount: " << ballot.benefitAmount << endl;
+        cout << endl;
+    }
 
-        switch (choice)
-        {
-        case 1:
-            adminLogin();
-            break;
-        case 2:
-            createMemberAccount();
-            break;
-        case 3:
-            displayTermsAndConditions();
-            break;
-        case 4:
-        {
-            // Get the number of months in the system
-            int numMonths = 12;
-            uniform_int_distribution<> dis(1, numMonths > 12 ? 12 : numMonths);
-            int randomBenefittingMonth = dis(gen);
-            cout << "EXITING THE SYSTEM. GOODBYE!" << endl;
-            cout << "Randomly paired benefitting month: " << randomBenefittingMonth << endl;
-            break;
-        }
-        default:
-            cout << "INVALID CHOICE. PLEASE TRY AGAIN." << endl;
-        }
-    } while (choice != 4);
+    // Remove a member
+    myJangi.exit("Jane Smith");
+
+    // Display updated member information
+    cout << "Updated Number of Members: " << myJangi.numMembers << endl;
 
     return 0;
 }
